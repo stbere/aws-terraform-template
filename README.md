@@ -47,7 +47,9 @@ Default output format [None]: json
 
 3. Verify bucket and dynamodb table is created via AWS console.
 
-4. 
+4. Once verified run `make init`. This will intitialise your terraform code using remote s3 as backend and dynamoDB for locks storage.
+
+
 
 # Formatting terraform code
 ```
