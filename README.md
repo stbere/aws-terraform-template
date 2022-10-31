@@ -2,6 +2,19 @@
 
 Base template repository for provisioning resources in AWS using Terraform.
 
+# Help
+
+```
+% make help
+
+audit                          Audits terraform code against any security issues
+bootstrap                      Bootstrapping AWS to be managed using Terraform
+fmt                            Formats terraform code
+help                           List targets & descriptions
+init                           Clean initialisation of terraform against backend s3 bucket
+lint                           Runs terraform linter against the code
+```
+
 ## Requirement
 
 You should have already created AWS IAM user and credentials showld already be stored in `~/.aws/credentials`.
@@ -30,19 +43,18 @@ Default output format [None]:
 
 1. Bootstrap AWS using terraform using `make bootstrap`.
 
-2. This will create a S3 bucket named `terraform-bucket-[DATE_SUFFIX]` and DynamoDb table named `teraform-state-lock`.
+2. This will create a S3 bucket named `aws-terraform-s3-bucket` and DynamoDb table named `aws-terraform--state-live-lock` in region `us-east-1`.
 
+3. Verify bucket and dynamodb table is created via AWS console.
+
+4. 
 
 # Formatting terraform code
 ```
 terraform fmt -recursive
 ```
 
-# Help
 
-```
-make help
-```
 
 # Contribution
 
