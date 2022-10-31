@@ -103,7 +103,8 @@ check_table_exists(){
     local dynamo_db_table=$1
     local region=$2
     local profile=$3
-    response=$(aws dynamodb list-tables --profile $profile --region $region | jq '.TableNames[] | select("teraform-state-lock")' | tr -d \")
+    response=$(aws dynamodb list-tables --profile $profile \
+                                        --region $region | jq '.TableNames[] | select("aws-terraform--state-live-lock")' | tr -d \")
     if [[ "$response" == "$dynamo_db_table" ]]; then
         echo "exists"
     else
@@ -114,24 +115,26 @@ check_table_exists(){
 create_s3_bucket(){
     local response
     response=$(aws s3api create-bucket \
-                --bucket $BUCKET_UNIQUE_NAME \
+                --bucket $BUCKET_NAME \
                 --region $REGION \
                 --profile $ENVIRONMENT)
     echo "$response"
 }
 
 create_dynamo_db_table(){
+    local response
     local dynamo_db_table=$1
     local region=$2
     local profile=$3
-    aws dynamodb create-table \
+    response=$(aws dynamodb create-table \
                 --table-name $dynamo_db_table \
                 --key-schema AttributeName=LockID,KeyType=HASH \
                 --region $region \
                 --profile $profile \
                 --attribute-definitions AttributeName=LockID,AttributeType=S \
                 --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
-                --tags Key=env,Value=$profile
+                --tags Key=env,Value=$profile)
+    echo "$response"
 }
 
 enable_bucket_versioning(){
@@ -145,15 +148,14 @@ enable_bucket_versioning(){
 
 main(){
     local ret
-    local bucket_unique_name="$BUCKET_NAME"-"$CURRENT_DATE"
 
     info "Checking if bucket already exists."
-    ret=$(check_bucket_already_exists "$bucket_unique_name" "$ENVIRONMENT")
+    ret=$(check_bucket_already_exists "$BUCKET_NAME" "$ENVIRONMENT")
     if [[ $ret = "exists" ]]; then
         info "Bucket already exists. Moving on"
     else
-        create_s3_bucket "$bucket_unique_name" "$REGION" "$ENVIRONMENT"
-        enable_bucket_versioning "$bucket_unique_name" "$ENVIRONMENT"
+        create_s3_bucket "$BUCKET_NAME" "$REGION" "$ENVIRONMENT"
+        enable_bucket_versioning "$BUCKET_NAME" "$ENVIRONMENT"
     fi
 
     info "Checking if dynamodb table already exists."

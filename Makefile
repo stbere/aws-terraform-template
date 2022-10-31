@@ -5,7 +5,7 @@ help: ## List targets & descriptions
 
 .PHONY: bootstrap
 bootstrap: ## Bootstrapping AWS to be managed using Terraform
-	bash bootstrap/bootstrap.sh -b terraform-bucket \
+	bash bootstrap/bootstrap.sh -b aws-terraform-s3-bucket \
 								-e dev \
 								-r us-east-1 \
-								-d teraform-state-lock
+								-d aws-terraform--state-live-lock
