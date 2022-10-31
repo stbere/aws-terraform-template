@@ -1,5 +1,6 @@
 # aws-terraform-template
-Terraform repository template for AWS
+
+Base template repository for provisioning resources in AWS using Terraform.
 
 ## Requirement
 
