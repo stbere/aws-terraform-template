@@ -33,6 +33,11 @@ Default output format [None]:
 2. This will create a S3 bucket named `terraform-bucket-[DATE_SUFFIX]` and DynamoDb table named `teraform-state-lock`.
 
 
+# Formatting terraform code
+```
+terraform fmt -recursive
+```
+
 # Help
 
 ```
