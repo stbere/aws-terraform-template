@@ -36,7 +36,7 @@ If you have not configured the account, you can do using
 AWS Access Key ID [None]: <copy paste from aws console>
 AWS Secret Access Key [None]: <copy paste from aws console>
 Default region name [None]: prod
-Default output format [None]:
+Default output format [None]: json
 ```
 
 # Usage
