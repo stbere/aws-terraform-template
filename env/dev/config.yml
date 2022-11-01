@@ -1,0 +1,11 @@
+---
+vpcs:
+  - provider: aws
+    vpc_name: "us-east-1a"
+    region: "us-east-1"
+  - provider: azure
+    vpc_name: "us-west-2a"
+    region: "us-west-1"
+env: "dev"
+netblocks:
+    cidr_supernet: "10.0.0.0/16"
