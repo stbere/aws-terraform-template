@@ -12,6 +12,9 @@ help: ## List targets & descriptions
 init: ## Clean initialisation of terraform against backend s3 bucket
 	terraform init -reconfigure -backend-config="bucket=${BUCKET_NAME}"
 
+.PHONY: plan
+plan: ## Creates plan
+	terraform plan -out=tfplan
 
 .PHONY: fmt
 fmt: ## Formats terraform code

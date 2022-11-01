@@ -1,0 +1,7 @@
+---
+vpcs:
+  - vpc_name: "us-east-1a"
+    region: "us-east-1"
+env: "dev"
+netblocks:
+    cidr_supernet: "10.0.0.0/16"
