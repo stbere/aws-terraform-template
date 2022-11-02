@@ -16,9 +16,18 @@ init: ## Clean initialisation of terraform against backend s3 bucket
 plan: ## Creates plan
 	terraform plan -out=tfplan
 
+.PHONY: apply
+apply: ## Apply terraform plan
+	terraform apply tfplan
+
 .PHONY: fmt
 fmt: ## Formats terraform code
 	terraform fmt -recursive
+
+.PHONY: test
+test: ## Rudimentary test for terraform code
+	terraform fmt -check
+	terraform validate
 
 .PHONY: lint
 lint: ## Runs terraform linter against the code
@@ -34,5 +43,4 @@ bootstrap: ## Bootstrapping AWS to be managed using Terraform
 								-e ${AWS_PROFILE} \
 								-r ${REGION} \
 								-d ${DYNAMO_DB}
-
 
