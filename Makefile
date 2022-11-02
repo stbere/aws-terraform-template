@@ -44,3 +44,6 @@ bootstrap: ## Bootstrapping AWS to be managed using Terraform
 								-r ${REGION} \
 								-d ${DYNAMO_DB}
 
+.PHONY: destroy
+destroy: ## Delete all terraform created resources
+	terraform destroy
