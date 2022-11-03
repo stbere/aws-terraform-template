@@ -138,8 +138,8 @@ create_dynamo_db_table(){
 }
 
 enable_bucket_versioning(){
-    local bucket_name = $1
-    local environment = $2
+    local bucket_name=$1
+    local environment=$2
     info "Enable versioning on $1"
     aws s3api put-bucket-versioning --bucket $bucket_name \
                                     --versioning-configuration Status=Enabled \
@@ -155,8 +155,11 @@ main(){
         info "Bucket already exists. Moving on"
     else
         create_s3_bucket "$BUCKET_NAME" "$REGION" "$ENVIRONMENT"
-        enable_bucket_versioning "$BUCKET_NAME" "$ENVIRONMENT"
     fi
+
+    # TODO: Check if bucket versioning has already been enabled
+    enable_bucket_versioning "$BUCKET_NAME" "$ENVIRONMENT"
+
 
     info "Checking if dynamodb table already exists."
     ret=$(check_table_exists "$DYNAMO_DB" "$REGION" "$ENVIRONMENT" )
