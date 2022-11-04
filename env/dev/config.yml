@@ -1,7 +1,14 @@
 ---
-vpcs:
-  - vpc_name: "us-east-1a"
-    region: "us-east-1"
-env: "dev"
-netblocks:
-    cidr_supernet: "10.0.0.0/16"
+# Region -> VPC -> AZ -> Subnets
+regions:
+  - name: "us-east-1"
+    vpcs:
+      - name: "vpc-use1-vpc"
+        cidr_supernet: "10.0.0.0/16"
+        availability_zones:
+          - name: "us-east-1a"
+            netblocks:
+              cidr_subnet_public: "10.0.0.0/20"
+              cidr_subnet_private: "10.0.16.0/20"
+env: "Dev"
+

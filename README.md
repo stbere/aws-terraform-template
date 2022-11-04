@@ -2,6 +2,8 @@
 
 Base template repository for provisioning resources in AWS using Terraform.
 
+10.0.0.0/16 - Supernet
+
 # Help
 
 ```
